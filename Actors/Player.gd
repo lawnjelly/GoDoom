@@ -14,7 +14,6 @@ var m_iTick_NextLaser = 0
 var m_iTick_FinishLaser = 0
 const m_LASER_TICKS = 6
 
-# Called when the node enters the scene tree for the first time.
 func Create():
 #	Physics_Create(Scene.m_Phy_Player)
 #	m_Type = Game.eType.T_PLAYER

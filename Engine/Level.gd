@@ -39,7 +39,7 @@ func Level_Start():
 	Scene.m_RoomManager.set_rooms(lev)
 	Scene.m_RoomManager.rooms_set_portal_plane_convention(true)
 	#m_RoomManager.rooms_set_hide_method_detach(false)
-	Scene.m_RoomManager.rooms_convert(true, true)
+	Scene.m_RoomManager.rooms_convert(false, true)
 #	Scene.m_RoomManager.rooms_set_debug_planes(true)
 #	Scene.m_RoomManager.rooms_set_debug_bounds(true)
 

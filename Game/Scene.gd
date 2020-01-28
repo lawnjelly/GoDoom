@@ -37,6 +37,9 @@ var m_Scene_Melt
 var m_Scene_RepPool
 var m_Scene_Demo
 
+var m_Scene_Monster
+var m_Scene_Rep_Monster
+
 var m_Scene_Levels = []
 
 var m_Label_Fuel
@@ -90,6 +93,9 @@ func App_Start():
 	m_Scene_Melt = load("res://Particles/Particles_Melt.tscn")
 	m_Scene_RepPool = load("res://Scenes/RepPool.tscn")
 	m_Scene_Demo = load("res://Scenes/Demo.tscn")
+
+	m_Scene_Monster = load("res://Scenes/Enemy/Monster.tscn")
+	m_Scene_Rep_Monster = load("res://Scenes/Enemy/Monster_Rep.tscn")
 
 	var scene_lev = load("res://Levels/0/rooms.tscn")
 	m_Scene_Levels.push_back(scene_lev)

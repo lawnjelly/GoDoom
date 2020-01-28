@@ -4,6 +4,9 @@ var m_Objects = []
 
 const FRICTION = 0.95
 const GRAVITY = 0.002
+const RADIUS = 1.0
+const RADIUS_DOUBLE = (RADIUS * 2.0)
+const RADIUS_DOUBLE_SQUARED = (RADIUS_DOUBLE * RADIUS_DOUBLE)
 
 class GObject:
 	var m_SID : int = -1
@@ -11,6 +14,7 @@ class GObject:
 	var m_ptVel : Vector3
 	var m_bOnFloor : bool = false
 	var m_bFlying : bool = false
+	var m_Friction : float = FRICTION
 
 
 func _ready():
@@ -21,7 +25,7 @@ func create_obj()->int:
 	var id = m_Objects.size()
 	var o = GObject.new()
 	o.m_SID = -1
-	o.m_ptPos = Vector3(-26, 5, 0)
+	o.m_ptPos = Vector3(-26 + rand_range(-0.1, 0.1), 5, 0)
 	m_Objects.push_back(o)
 	return id
 	
@@ -59,13 +63,43 @@ func iterate_obj(var id : int):
 		if not o.m_bFlying:
 			o.m_ptVel.y -= GRAVITY
 		else:
-			o.m_ptVel.y *= FRICTION
+			o.m_ptVel.y *= o.m_Friction
 		
-	o.m_ptVel.x *= FRICTION # friction
-	o.m_ptVel.z *= FRICTION # friction
+	o.m_ptVel.x *= o.m_Friction # friction
+	o.m_ptVel.z *= o.m_Friction # friction
+
+func collision_check(var id_a : int, var id_b : int):
+	var a : GObject = get_obj(id_a)
+	var b : GObject = get_obj(id_b)
+	
+	var o : Vector3 = b.m_ptPos - a.m_ptPos
+	var sl : float = o.length_squared()
+	if sl >= RADIUS_DOUBLE_SQUARED:
+		return
+		
+	var l : float = sqrt(sl)
+	
+	var f : float = l / RADIUS_DOUBLE
+	#f *= f
+	f = 1.0 - f
+	#f *= f
+	f *= 0.05
+	
+	# normalize direction
+	o = o.normalized()
+	o *= f
+	
+	a.m_ptVel -= o
+	b.m_ptVel += o
 
 func iterate_all():
 	var nItems = m_Objects.size()
+	
+	# collision avoidance
+	for n in range (nItems):
+		for m in range (n+1, nItems):
+			collision_check(n, m)
+	
 	
 	for n in range (nItems):
 		iterate_obj(n)
