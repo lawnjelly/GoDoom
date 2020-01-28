@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Shader/shader_particle_additive.shader" type="Shader" id=1]
+[ext_resource path="res://Assets/Textures/pel_particle_spark64.png" type="Texture" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/texture_albedo = ExtResource( 2 )
+
+[sub_resource type="QuadMesh" id=2]
+material = SubResource( 1 )
+size = Vector2( 2, 2 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.396918, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Particles_Sparks" type="CPUParticles"]
+emitting = false
+mesh = SubResource( 2 )
+initial_velocity = 2.0
+scale_amount_curve = SubResource( 3 )
+

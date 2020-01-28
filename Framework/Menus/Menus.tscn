@@ -1,0 +1,371 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Framework/MyTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Framework/Menus/Title_Screen.gd" type="Script" id=2]
+[ext_resource path="res://Framework/Menus/Font_Reg.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Framework/Menus/buttons/Button.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Framework/Menus/New_Screen.gd" type="Script" id=5]
+[ext_resource path="res://Framework/Menus/Options_Screen.gd" type="Script" id=6]
+[ext_resource path="res://Framework/Menus/Pause_Screen.gd" type="Script" id=7]
+[ext_resource path="res://Framework/Menus/Credits_Screen.gd" type="Script" id=8]
+[ext_resource path="res://Framework/Menus/Font_Bold.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Framework/Menus/Font_Ital.tres" type="DynamicFont" id=10]
+
+[node name="Menus" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Title_Screen" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Title_Menu" type="VBoxContainer" parent="Title_Screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -161.0
+margin_top = -150.0
+margin_right = 161.0
+margin_bottom = 151.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="Title_Screen/Title_Menu"]
+margin_right = 322.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+text = "Deep Thrust"
+align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Title_Screen/Title_Menu"]
+margin_top = 64.0
+margin_right = 322.0
+margin_bottom = 301.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Title_Screen/Title_Menu/VBoxContainer"]
+margin_right = 322.0
+margin_bottom = 53.0
+custom_fonts/font = ExtResource( 3 )
+text = "Version 0.16
+"
+align = 1
+
+[node name="NewGame" parent="Title_Screen/Title_Menu/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 57.0
+margin_right = 322.0
+margin_bottom = 97.0
+focus_neighbour_bottom = NodePath("../Credits")
+text = "NewGame"
+
+[node name="Credits" parent="Title_Screen/Title_Menu/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 101.0
+margin_right = 322.0
+margin_bottom = 141.0
+focus_neighbour_top = NodePath("../NewGame")
+focus_neighbour_bottom = NodePath("../Exit")
+text = "Credits"
+
+[node name="Exit" parent="Title_Screen/Title_Menu/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 145.0
+margin_right = 322.0
+margin_bottom = 185.0
+text = "Exit"
+
+[node name="New_Screen" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="New_Menu" type="VBoxContainer" parent="New_Screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -204.5
+margin_top = -158.5
+margin_right = 204.5
+margin_bottom = 177.5
+size_flags_horizontal = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="New_Screen/New_Menu"]
+visible = false
+margin_right = 409.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+text = "New Game"
+align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="New_Screen/New_Menu"]
+margin_right = 409.0
+margin_bottom = 336.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="New_Screen/New_Menu/VBoxContainer"]
+margin_right = 409.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 3 )
+text = "Game Mode"
+
+[node name="ItemList" type="ItemList" parent="New_Screen/New_Menu/VBoxContainer"]
+margin_top = 28.0
+margin_right = 409.0
+margin_bottom = 148.0
+rect_min_size = Vector2( 0, 120 )
+
+[node name="Label2" type="Label" parent="New_Screen/New_Menu/VBoxContainer"]
+margin_top = 152.0
+margin_right = 409.0
+margin_bottom = 176.0
+custom_fonts/font = ExtResource( 3 )
+text = "Difficulty"
+
+[node name="HSlider" type="HSlider" parent="New_Screen/New_Menu/VBoxContainer"]
+margin_top = 180.0
+margin_right = 409.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 0, 48 )
+max_value = 6.0
+value = 3.0
+rounded = true
+tick_count = 7
+
+[node name="Start" parent="New_Screen/New_Menu/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 232.0
+margin_right = 409.0
+margin_bottom = 272.0
+text = "Start"
+
+[node name="Options_Screen" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+
+[node name="Options_Menu" type="VBoxContainer" parent="Options_Screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -191.0
+margin_top = -170.0
+margin_right = 191.0
+margin_bottom = 170.0
+size_flags_horizontal = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Options_Screen/Options_Menu"]
+margin_right = 382.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+text = "Options"
+align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Options_Screen/Options_Menu"]
+margin_top = 64.0
+margin_right = 382.0
+margin_bottom = 340.0
+size_flags_vertical = 3
+
+[node name="CheckBox" type="CheckBox" parent="Options_Screen/Options_Menu/VBoxContainer"]
+margin_right = 382.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 3 )
+pressed = true
+text = "Fullscreen"
+
+[node name="Label2" type="Label" parent="Options_Screen/Options_Menu/VBoxContainer"]
+margin_top = 36.0
+margin_right = 382.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 3 )
+text = "Sound Volume"
+
+[node name="SoundSlider" type="HSlider" parent="Options_Screen/Options_Menu/VBoxContainer"]
+margin_top = 64.0
+margin_right = 382.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 0, 48 )
+max_value = 2.0
+step = 0.1
+value = 1.0
+tick_count = 21
+
+[node name="Label3" type="Label" parent="Options_Screen/Options_Menu/VBoxContainer"]
+margin_top = 116.0
+margin_right = 382.0
+margin_bottom = 140.0
+custom_fonts/font = ExtResource( 3 )
+text = "Music Volume"
+
+[node name="MusicSlider2" type="HSlider" parent="Options_Screen/Options_Menu/VBoxContainer"]
+margin_top = 144.0
+margin_right = 382.0
+margin_bottom = 192.0
+rect_min_size = Vector2( 0, 48 )
+max_value = 2.0
+step = 0.1
+value = 1.0
+tick_count = 21
+
+[node name="Back" parent="Options_Screen/Options_Menu/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 196.0
+margin_right = 382.0
+margin_bottom = 236.0
+text = "Back"
+
+[node name="Pause_Screen" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 7 )
+
+[node name="Pause_Menu" type="VBoxContainer" parent="Pause_Screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -69.0
+margin_top = -86.5
+margin_right = 69.0
+margin_bottom = 86.5
+alignment = 1
+
+[node name="Label" type="Label" parent="Pause_Screen/Pause_Menu"]
+margin_right = 138.0
+margin_bottom = 51.0
+text = "Paused"
+align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause_Screen/Pause_Menu"]
+margin_top = 55.0
+margin_right = 138.0
+margin_bottom = 234.0
+size_flags_vertical = 3
+
+[node name="Resume" parent="Pause_Screen/Pause_Menu/VBoxContainer" instance=ExtResource( 4 )]
+margin_right = 138.0
+text = "Resume"
+
+[node name="Options" parent="Pause_Screen/Pause_Menu/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 61.0
+margin_right = 138.0
+margin_bottom = 118.0
+text = "Options"
+
+[node name="EndGame" parent="Pause_Screen/Pause_Menu/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 122.0
+margin_right = 138.0
+margin_bottom = 179.0
+text = "End Game"
+
+[node name="Credits_Screen" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Credits_Menu" type="VBoxContainer" parent="Credits_Screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -302.0
+margin_top = -237.5
+margin_right = 302.0
+margin_bottom = 237.5
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Credits_Screen/Credits_Menu"]
+margin_right = 604.0
+margin_bottom = 34.0
+custom_colors/font_color = Color( 1, 0.84375, 0, 1 )
+text = "Credits"
+align = 1
+
+[node name="Label2" type="Label" parent="Credits_Screen/Credits_Menu"]
+margin_top = 38.0
+margin_right = 604.0
+margin_bottom = 62.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 0.698039, 0, 1 )
+text = "OpenGL ES 2 - Electric Boogaloo"
+align = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits_Screen/Credits_Menu"]
+margin_top = 66.0
+margin_right = 604.0
+margin_bottom = 475.0
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Credits_Screen/Credits_Menu/VBoxContainer"]
+margin_right = 604.0
+margin_bottom = 360.0
+rect_min_size = Vector2( 0, 360 )
+scroll_horizontal_enabled = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Credits_Screen/Credits_Menu/VBoxContainer/ScrollContainer"]
+margin_right = 604.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 0, 1100 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Credits_Text" type="RichTextLabel" parent="Credits_Screen/Credits_Menu/VBoxContainer/ScrollContainer/HBoxContainer"]
+margin_right = 294.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 0, 60 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/bold_font = ExtResource( 9 )
+custom_fonts/normal_font = ExtResource( 3 )
+bbcode_enabled = true
+
+[node name="Credits_Text2" type="RichTextLabel" parent="Credits_Screen/Credits_Menu/VBoxContainer/ScrollContainer/HBoxContainer"]
+margin_left = 298.0
+margin_right = 592.0
+margin_bottom = 1100.0
+rect_min_size = Vector2( 0, 60 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 10 )
+bbcode_enabled = true
+
+[node name="Back" parent="Credits_Screen/Credits_Menu/VBoxContainer" instance=ExtResource( 4 )]
+margin_top = 364.0
+margin_right = 604.0
+margin_bottom = 404.0
+text = "Back"
+[connection signal="pressed" from="Title_Screen/Title_Menu/VBoxContainer/NewGame" to="Title_Screen" method="_on_NewGame_pressed"]
+[connection signal="pressed" from="Title_Screen/Title_Menu/VBoxContainer/Credits" to="Title_Screen" method="_on_Credits_pressed"]
+[connection signal="pressed" from="Title_Screen/Title_Menu/VBoxContainer/Exit" to="Title_Screen" method="_on_Exit_pressed"]
+[connection signal="value_changed" from="New_Screen/New_Menu/VBoxContainer/HSlider" to="New_Screen" method="_on_HSlider_value_changed"]
+[connection signal="pressed" from="New_Screen/New_Menu/VBoxContainer/Start" to="New_Screen" method="_on_Start_pressed"]
+[connection signal="toggled" from="Options_Screen/Options_Menu/VBoxContainer/CheckBox" to="Options_Screen" method="_on_CheckBox_toggled"]
+[connection signal="value_changed" from="Options_Screen/Options_Menu/VBoxContainer/SoundSlider" to="Options_Screen" method="_on_SoundSlider_value_changed"]
+[connection signal="value_changed" from="Options_Screen/Options_Menu/VBoxContainer/MusicSlider2" to="Options_Screen" method="_on_MusicSlider2_value_changed"]
+[connection signal="pressed" from="Options_Screen/Options_Menu/VBoxContainer/Back" to="Options_Screen" method="_on_Back_pressed"]
+[connection signal="pressed" from="Pause_Screen/Pause_Menu/VBoxContainer/Resume" to="Pause_Screen" method="_on_Resume_pressed"]
+[connection signal="pressed" from="Pause_Screen/Pause_Menu/VBoxContainer/Options" to="Pause_Screen" method="_on_Options_pressed"]
+[connection signal="pressed" from="Pause_Screen/Pause_Menu/VBoxContainer/EndGame" to="Pause_Screen" method="_on_EndGame_pressed"]
+[connection signal="pressed" from="Credits_Screen/Credits_Menu/VBoxContainer/Back" to="Credits_Screen" method="_on_Back_pressed"]

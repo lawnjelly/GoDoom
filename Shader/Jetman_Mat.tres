@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://Shader/shader_complex.shader" type="Shader" id=1]
+[ext_resource path="res://Assets/Models/Jetman/Jetman.jpg" type="Texture" id=2]
+[ext_resource path="res://Assets/Models/Jetman/Jetman_S.jpg" type="Texture" id=3]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/metal_mult = 1.233
+shader_param/rough_mult = 1.0
+shader_param/spec_mult = 4.535
+shader_param/texture_albedo = ExtResource( 2 )
+shader_param/texture_spec = ExtResource( 3 )

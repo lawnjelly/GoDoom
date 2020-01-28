@@ -1,0 +1,54 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type spatial;
+//render_mode cull_disabled;
+//render_mode specular_disabled;
+//render_mode depth_draw_never;
+render_mode unshaded, blend_add;
+
+uniform highp float shader_time = 0.0;
+
+
+void fragment()
+{
+	//float v = UV.y*2.0;
+	//v -= 1.0;
+	//v = abs(v);
+	//v *= v;
+	//v *= v;
+	//v = 1.0 - v;
+	
+//	float u = (UV.x * 50.0) - (shader_time*50.0);
+	float t = sin(TIME) * 2.0;
+	float u = (UV.x * 5.0) - (shader_time*10.0) - t;
+	//u *= 100.0;
+	float r = sin (u) * 0.3;
+	float g = sin (u*u) * 0.3;
+	//float b = (sin (u*u*u)) * 0.3;
+	//fu *= fu;
+	//float fv = sin (u * 0.9);
+	ALBEDO = vec3(1.0, r, g);
+	
+	float a = (UV.x - (shader_time));
+	//a = 1.0 - a;
+	//a *= a;
+	//a = 1.0 - a;
+	a *= 3.0;
+	ALPHA = clamp(a, 0.0, 1.0);
+//	if (UV.x < (1.0 - shader_time))
+//	{
+//		ALPHA = 0.0;
+//	}
+//	else
+//	{
+//		ALPHA = 1.0;
+//	}
+		
+	
+	
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/shader_time = 0.0

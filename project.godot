@@ -1,0 +1,187 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "Actor_Base",
+"language": "GDScript",
+"path": "res://Actors/Actor_Base.gd"
+}, {
+"base": "Reference",
+"class": "Actors",
+"language": "GDScript",
+"path": "res://Actors/Actors.gd"
+}, {
+"base": "Spatial",
+"class": "LaPool",
+"language": "GDScript",
+"path": "res://Framework/Core/LaPool.gd"
+}, {
+"base": "Spatial",
+"class": "LaPooledObject",
+"language": "GDScript",
+"path": "res://Framework/Core/LaPooledObject.gd"
+}, {
+"base": "Reference",
+"class": "LaRandList",
+"language": "GDScript",
+"path": "res://Framework/Core/LaRandList.gd"
+}, {
+"base": "Spatial",
+"class": "LaSimplePool",
+"language": "GDScript",
+"path": "res://Framework/Core/LaSimplePool.gd"
+}, {
+"base": "Spatial",
+"class": "LaSimplePooledObject",
+"language": "GDScript",
+"path": "res://Framework/Core/LaSimplePooledObject.gd"
+}, {
+"base": "Reference",
+"class": "Level",
+"language": "GDScript",
+"path": "res://Engine/Level.gd"
+}, {
+"base": "Reference",
+"class": "ParticleSystems",
+"language": "GDScript",
+"path": "res://Scripts/ParticleSystems.gd"
+}, {
+"base": "AudioStreamPlayer3D",
+"class": "Sound",
+"language": "GDScript",
+"path": "res://Framework/Sound/Sound.gd"
+}, {
+"base": "Reference",
+"class": "SoundCommand",
+"language": "GDScript",
+"path": "res://Framework/Sound/SoundCommand.gd"
+}, {
+"base": "Reference",
+"class": "SoundInfo",
+"language": "GDScript",
+"path": "res://Framework/Sound/SoundInfo.gd"
+}, {
+"base": "Reference",
+"class": "Vec2I",
+"language": "GDScript",
+"path": "res://Framework/Primitive/Vec2I.gd"
+} ]
+_global_script_class_icons={
+"Actor_Base": "",
+"Actors": "",
+"LaPool": "",
+"LaPooledObject": "",
+"LaRandList": "",
+"LaSimplePool": "",
+"LaSimplePooledObject": "",
+"Level": "",
+"ParticleSystems": "",
+"Sound": "",
+"SoundCommand": "",
+"SoundInfo": "",
+"Vec2I": ""
+}
+
+[application]
+
+config/name="GoDoom"
+run/main_scene="res://Scenes/Root.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Timing="*res://Game/Timing.gd"
+Scene="*res://Game/Scene.gd"
+Game="*res://Game/Game.gd"
+Manager="*res://Game/Manager.gd"
+Framework="*res://Framework/Framework.gd"
+Helper="*res://Game/Helper.gd"
+Math="*res://Game/Math.gd"
+Graph="*res://Engine/Graph.gd"
+Graph_Load="*res://Engine/Graph_Load.gd"
+Graph_Objects="*res://Engine/Graph_Objects.gd"
+
+[debug]
+
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/unreachable_code=false
+gdscript/warnings/return_value_discarded=false
+gdscript/warnings/integer_division=false
+
+[editor_plugins]
+
+enabled=PoolStringArray( "smoothing" )
+
+[input]
+
+ui_accept={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777222,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":81,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":50,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_select={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":3,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":51,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_focus_next={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":49,"unicode":0,"echo":false,"script":null)
+ ]
+}
+jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777350,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+3d_physics/layer_1="TerrainPlatforms"
+3d_physics/layer_2="Static"
+3d_physics/layer_3="Boxes"
+3d_physics/layer_11="Player"
+3d_physics/layer_12="Monster"
+3d_physics/layer_13="Spawner"
+3d_physics/layer_14="Carry"
+
+[physics]
+
+common/physics_jitter_fix=0.0
+3d/active_soft_world=false
+common/enable_object_picking=false
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+quality/directional_shadow/size=640
+quality/directional_shadow/size.mobile=512
+quality/shadow_atlas/size=512
+quality/shadow_atlas/size.mobile=512
+quality/reflections/texture_array_reflections=false
+quality/shading/force_vertex_shading.mobile=false
+quality/depth_prepass/enable=false
+quality/filters/use_nearest_mipmap_filter=true
+environment/default_clear_color=Color( 0, 0, 0, 1 )
+quality/reflections/atlas_size=512
+quality/depth/hdr=false
+environment/default_environment="res://world_environment.tres"

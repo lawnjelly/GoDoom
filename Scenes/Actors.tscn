@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=1]
+
+[node name="Actors" type="Spatial"]
+
+[node name="Reps" type="Spatial" parent="."]
+
+[node name="Phys" type="Spatial" parent="."]
+
+[node name="Player" parent="Phys" instance=ExtResource( 1 )]

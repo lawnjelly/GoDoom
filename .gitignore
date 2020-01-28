@@ -1,0 +1,17 @@
+# godot
+.import/
+export.cfg
+export_presets.cfg
+
+Assets/
+*.png
+*.jpg
+*.dae
+*.obj
+*.lev
+*.wav
+*.ogg
+
+
+# system
+*~

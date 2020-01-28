@@ -1,0 +1,257 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Framework/MyTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Textures/UI/Health.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Textures/shield64.png" type="Texture" id=3]
+[ext_resource path="res://Framework/SmallTheme.tres" type="Theme" id=4]
+[ext_resource path="res://Assets/Textures/UI/UI_bomb.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Textures/UI/UI_D_laser.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Textures/UI/UI_laser.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Textures/UI/UI_tractor.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Textures/UI/UI_D_bomb.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/Touchstick/Touchstick.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Assets/Textures/UI/UI_D_tractor.png" type="Texture" id=11]
+
+[node name="UI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 112.0
+margin_bottom = 51.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_top = 8.0
+margin_right = 98.0
+margin_bottom = 42.0
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "Lives"
+
+[node name="Label_Lives" type="Label" parent="HBoxContainer"]
+margin_left = 102.0
+margin_top = 8.0
+margin_right = 126.0
+margin_bottom = 42.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "5"
+
+[node name="HBoxContainer_Fuel" type="HBoxContainer" parent="."]
+margin_left = 154.0
+margin_right = 322.0
+margin_bottom = 51.0
+
+[node name="Label" type="Label" parent="HBoxContainer_Fuel"]
+margin_top = 8.0
+margin_right = 90.0
+margin_bottom = 42.0
+custom_colors/font_color = Color( 1, 0.585938, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "Fuel"
+
+[node name="Label_Fuel" type="Label" parent="HBoxContainer_Fuel"]
+margin_left = 94.0
+margin_top = 8.0
+margin_right = 150.0
+margin_bottom = 42.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "100"
+
+[node name="HBoxContainer_Health" type="HBoxContainer" parent="."]
+margin_left = 333.0
+margin_right = 735.0
+margin_bottom = 51.0
+
+[node name="Label" type="Label" parent="HBoxContainer_Health"]
+margin_top = 8.0
+margin_right = 132.0
+margin_bottom = 42.0
+custom_colors/font_color = Color( 1, 0.585938, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "Health"
+
+[node name="Label_Health" type="Label" parent="HBoxContainer_Health"]
+visible = false
+margin_left = 136.0
+margin_top = 8.0
+margin_right = 192.0
+margin_bottom = 42.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "100"
+
+[node name="Control" type="Control" parent="HBoxContainer_Health"]
+margin_left = 136.0
+margin_right = 136.0
+margin_bottom = 51.0
+
+[node name="TextureProgress_Health" type="TextureProgress" parent="HBoxContainer_Health/Control"]
+anchor_right = 0.32
+margin_top = 20.0
+margin_right = 256.0
+margin_bottom = 32.0
+value = 100.0
+rounded = true
+texture_progress = ExtResource( 2 )
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -288.0
+margin_bottom = 64.0
+grow_horizontal = 0
+rect_min_size = Vector2( 256, 0 )
+
+[node name="Icon_Armour" type="TextureRect" parent="HBoxContainer2"]
+margin_right = 49.0
+margin_bottom = 64.0
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+margin_left = 53.0
+margin_top = 15.0
+margin_right = 167.0
+margin_bottom = 49.0
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "Score"
+
+[node name="Control" type="Control" parent="HBoxContainer2"]
+margin_left = 171.0
+margin_right = 171.0
+margin_bottom = 64.0
+size_flags_horizontal = 0
+
+[node name="Label_Score" type="Label" parent="HBoxContainer2/Control"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -17.0
+margin_right = 121.0
+margin_bottom = 17.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "0"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+margin_top = 64.0
+margin_right = -540.0
+margin_bottom = 172.0
+theme = ExtResource( 4 )
+
+[node name="Label_Debug0" type="Label" parent="VBoxContainer"]
+margin_right = 484.0
+margin_bottom = 22.0
+
+[node name="Label_Debug1" type="Label" parent="VBoxContainer"]
+margin_top = 26.0
+margin_right = 484.0
+margin_bottom = 48.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -82.0
+margin_top = 64.0
+margin_bottom = -428.0
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label_Needed0" type="Label" parent="VBoxContainer2"]
+margin_right = 82.0
+margin_bottom = 22.0
+
+[node name="Label_Needed1" type="Label" parent="VBoxContainer2"]
+margin_top = 26.0
+margin_right = 82.0
+margin_bottom = 48.0
+
+[node name="BottomLeft" type="Control" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Touchstick" parent="BottomLeft" instance=ExtResource( 10 )]
+position = Vector2( 128, -128 )
+
+[node name="BottomRight" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WeaponPad" type="Node2D" parent="BottomRight"]
+
+[node name="WeaponVBox" type="VBoxContainer" parent="BottomRight/WeaponPad"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -146.0
+margin_top = -600.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Control_Tractor" type="Control" parent="BottomRight/WeaponPad/WeaponVBox"]
+margin_right = 146.0
+margin_bottom = 197.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Touch_Tractor" type="TouchScreenButton" parent="BottomRight/WeaponPad/WeaponVBox/Control_Tractor"]
+normal = ExtResource( 8 )
+pressed = ExtResource( 11 )
+passby_press = true
+action = "ui_select"
+
+[node name="Control_Bomb" type="Control" parent="BottomRight/WeaponPad/WeaponVBox"]
+margin_top = 201.0
+margin_right = 146.0
+margin_bottom = 398.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Touch_Bomb" type="TouchScreenButton" parent="BottomRight/WeaponPad/WeaponVBox/Control_Bomb"]
+position = Vector2( 0, -8 )
+normal = ExtResource( 5 )
+pressed = ExtResource( 9 )
+passby_press = true
+action = "ui_accept"
+
+[node name="Control_Laser" type="Control" parent="BottomRight/WeaponPad/WeaponVBox"]
+margin_top = 402.0
+margin_right = 146.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Touch_Laser" type="TouchScreenButton" parent="BottomRight/WeaponPad/WeaponVBox/Control_Laser"]
+position = Vector2( 0, -4 )
+normal = ExtResource( 7 )
+pressed = ExtResource( 6 )
+passby_press = true
+action = "ui_focus_next"

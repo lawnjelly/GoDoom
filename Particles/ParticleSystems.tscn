@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="ParticleSystems" type="Spatial"]
+
+[node name="Explosions" type="Spatial" parent="."]
+
+[node name="Melts" type="Spatial" parent="."]
+
