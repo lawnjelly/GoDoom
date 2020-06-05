@@ -43,8 +43,8 @@ func Level_Start():
 #	Scene.m_RoomManager.rooms_set_debug_planes(true)
 #	Scene.m_RoomManager.rooms_set_debug_bounds(true)
 
-	Scene.m_RoomManager.dob_register(Scene.m_Node_Camera, 0)
-	print ("registering camfirst in room " + str(Scene.m_RoomManager.dob_get_room_id(Scene.m_Node_Camera)))
+	var cam_dob_id = Scene.m_RoomManager.dob_register(Scene.m_Node_Camera, Scene.m_Node_Camera.translation, 0)
+	#print ("registering camfirst in room " + str(Scene.m_RoomManager.dob_get_room_id(Scene.m_Node_Camera)))
 	
 	#print("camfirst ID is " + str(Scene.m_node_Cam_First.get_instance_id()))
 	
@@ -55,7 +55,7 @@ func Level_Start():
 
 	
 	#Scene.m_RoomManager.rooms_set_camera(Scene.m_node_Cam_Third)
-	Scene.m_RoomManager.rooms_set_camera(Scene.m_Node_Camera)
+	Scene.m_RoomManager.rooms_set_camera(cam_dob_id, Scene.m_Node_Camera)
 
 
 

@@ -17,6 +17,11 @@ class GObject:
 	var m_Friction : float = FRICTION
 
 
+class GTraceResult:
+	var m_bHit : bool
+	var m_ptHit : Vector3
+	var m_Distance : float # dist to hit point
+
 func _ready():
 	pass # Replace with function body.
 
@@ -31,6 +36,9 @@ func create_obj()->int:
 	
 func get_obj(var id : int)->GObject:
 	return m_Objects[id]
+	
+func get_obj_sid(var id : int)->int:
+	return m_Objects[id].m_SID
 
 func clear():
 	m_Objects.clear()	
@@ -157,6 +165,161 @@ func safe_slide(var o : GObject, var norm : Vector3, var dist_from_plane, var de
 #	var new_speed : float = o.m_ptVel.length()
 #	if new_speed > speed:
 #		o.m_ptVel *= speed / new_speed
+
+# return wall hit or -1	
+func trace_walls(var sid  : int, var ptStart: Vector3, var ptDir : Vector3):
+	# sector must be valid
+	assert (sid != -1)
+	
+	# vector2 versions
+	var v_start : Vector2 = Vector2(ptStart.x, ptStart.z)
+	var v_dir : Vector2 = Vector2(ptDir.x, ptDir.z)
+	# can't do anything if no direction
+	var dir_sl = v_dir.length_squared()
+	if (dir_sl < 0.01):
+		return -1
+		
+	# only interested in the component in 2d
+	v_dir = v_dir.normalized()
+	var v_mid : Vector2 = v_start + v_dir
+	
+	# start sector
+	var s : Graph.GSector = Graph.m_Sectors[sid]
+	
+	# go through and test each wall
+	for w in range (s.m_NumWalls):
+		# wall ids
+		var wid0 = w + s.m_FirstWall
+		var wid1 = ((w+1) % s.m_NumWalls) + s.m_FirstWall
+		
+		# 2d points of the wall
+		var p0 : Vector2 = Graph.m_Pts[wid0]
+		var p1 : Vector2 = Graph.m_Pts[wid1]
+		
+		# do a ray line segment test against the wall
+		var test_res = Math.Calculate_RayLineSegment_Intersection2D(v_start, v_mid, p0, p1)
+		
+		if test_res[0] == true:
+			return w
+			
+	# this may never happen
+	return -1
+	
+
+# start sector id
+func trace(var sid  : int, var ptStart: Vector3, var ptDir : Vector3):
+	# default trace result
+	var hit_res : GTraceResult = GTraceResult.new()
+	hit_res.m_bHit = false
+	
+	if sid == -1:
+		sid = Graph.find_sector(ptStart)
+
+	# start sector
+	var sector : Graph.GSector = Graph.m_Sectors[sid]
+
+	# is a wall hit?
+	var hit_wall : int = trace_walls(sid, ptStart, ptDir)
+	if hit_wall != -1:
+		var wid : int = hit_wall + sector.m_FirstWall
+		
+		# find the hit point with the wall plane
+		var ptHit = Graph.m_Planes[wid].intersects_ray(ptStart, ptDir)
+		if ptHit:
+			#var p0 : Vector2 = Graph.m_Pts[wid]
+			hit_res.m_bHit = true
+			hit_res.m_ptHit = ptHit
+			hit_res.m_Distance = (ptHit - ptStart).length_squared()
+			#hit_res.m_ptHit = Vector3(p0.x, ptStart.y, p0.y)
+			#return hit_res
+
+	#  check against ground for closer hits
+	var planes = []
+	planes.push_back(Graph.m_FloorPlanes[sid])
+	planes.push_back(Graph.m_CeilPlanes[sid])
+	
+	for p in range (2):
+		var plane : Plane = planes[p]
+		
+		var ptHit = plane.intersects_ray(ptStart, ptDir)
+		if ptHit:
+			var dist = (ptHit - ptStart).length_squared()
+			if !hit_res.m_bHit or hit_res.m_Distance > dist:
+				hit_res.m_bHit = true
+				hit_res.m_ptHit = ptHit
+				hit_res.m_Distance = (ptHit - ptStart).length_squared()
+
+	return hit_res
+
+	# start sector
+#	var s : Graph.GSector = Graph.m_Sectors[sid]
+#
+#	# go through and test each wall
+#	for w in range (s.m_NumWalls):
+#		# wall ids
+#		var wid0 = w + s.m_FirstWall
+#		var wid1 = ((w+1) % s.m_NumWalls) + s.m_FirstWall
+#
+#		# 2d points of the wall
+#		var p0 : Vector2 = Graph.m_Pts[wid]
+#		var p1 : Vector2 = Graph.m_Pts[wid1]
+#
+#		# do a ray line segment test against the wall
+#		var test_res = Math.Calculate_RayLineSegment_Intersection2D(v_start, v_mid, p0, p1)
+#
+#		if 
+#
+#
+#		var plane : Plane = Graph.m_Planes[wid]
+#		var dist = plane.distance_to(pt)
+#
+#		if dist < proximity:
+#			# portal
+#			var bSlide = true
+#
+#			var nsid : int = Graph.m_LinkedSectors[wid]
+#			if nsid != -1:
+#				# what is the height of the opening
+#				var nwid : int = Graph.m_LinkedWalls[wid]
+#				var heights : Vector2 = Graph.m_WallHeights[nwid]
+#
+#				# within the opening?
+#				if (pt.y >= heights.x) and (pt.y <= heights.y):
+#					if (dist < 0.0):
+#						# crossing portal
+#						o.m_SID = nsid
+#						#Scene.m_node_Root.get_node("Cube").translation = Graph.m_SectorCentres[o.m_SID]
+#						slide_move(o, count + 1)
+#						return trace(nsid, ptStart, ptDir)
+#						return
+#
+#					bSlide = false
+#
+#			# hit the wall
+#			return res
+#
+#	var plane_floor : Plane = Graph.m_FloorPlanes[sid]
+#	var fdist = plane_floor.distance_to(pt)
+#
+#	if fdist < (proximity + 0.1):
+#		o.m_bOnFloor = true
+#		if (fdist < proximity):
+#			if (safe_slide(o, plane_floor.normal, fdist, proximity)):
+#				if count <= 4:
+#					slide_move(o, count + 1)
+#				return
+#
+#	var plane_ceil = Graph.m_CeilPlanes[sid]
+#	var cdist = plane_ceil.distance_to(pt)
+#	if (cdist < proximity) and (safe_slide(o, plane_ceil.normal, cdist, proximity)):
+#		if count <= 4:
+#			slide_move(o, count + 1)
+#		return
+#
+#	o.m_ptPos = pt	
+#
+#	pass
+	
 	
 func slide_move(var o : GObject, var count : int = 0):
 	var pt : Vector3 = o.m_ptPos + o.m_ptVel
@@ -168,7 +331,7 @@ func slide_move(var o : GObject, var count : int = 0):
 		return
 	
 	# how close we can get to planes (radius of object)
-	var proximity = 0.5 # 0.5
+	var proximity = 0.7 # 0.5
 	
 	var sid : int = o.m_SID
 	
