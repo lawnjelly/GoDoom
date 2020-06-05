@@ -5,6 +5,7 @@ class_name Actor_Base
 var m_Yaw : float
 var m_Pos : Vector3 = Vector3()
 var m_Graph_ID : int
+var m_DOB_ID : int = -1
 
 
 # render rep is separate to the physics tick moved actor
@@ -26,6 +27,7 @@ func Base_TickUpdate():
 	var gob : Graph_Objects.GObject = Graph_Objects.get_obj(m_Graph_ID)
 	m_Pos = gob.m_ptPos
 	translation = m_Pos
+	rotation = Vector3(0, -m_Yaw, 0)
 	
 
 func Base_GetGOB()->Graph_Objects.GObject:

@@ -12,7 +12,7 @@ func Level_Start():
 	Scene.m_Phy_Player.Level_Start()
 	
 	# create monsters
-	for i in range (8):
+	for i in range (8): # 8
 		var m = Scene.m_Scene_Monster.instance()
 		Scene.m_Node_Physics.add_child(m)
 		m.Create()

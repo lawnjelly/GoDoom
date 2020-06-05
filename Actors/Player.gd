@@ -70,10 +70,17 @@ func TickUpdate():
 		Scene.m_RoomManager.rooms_set_active(m_bLPortalActive)
 	
 	
+	if Input.is_action_just_pressed("ui_end"):
+		Scene.m_RoomManager.rooms_log_frame()
+		if Game.m_bMonstersMove:
+			Game.m_bMonstersMove = false
+		else:
+			Game.m_bMonstersMove = true
+			
 	
 	
-	#DoInput()
-	move_firstperson()
+	DoInput()
+	Move_FirstPerson()
 	
 	Base_TickUpdate()
 	
@@ -100,9 +107,28 @@ func CanThrust():
 	return true
 	
 	
+func DoInput():
+	Game.m_InputFlags = 0
+	if Input.is_action_pressed("ui_left"):
+		Game.m_InputFlags |= Game.m_INPUT_LEFT
+	if Input.is_action_pressed("ui_right"):
+		Game.m_InputFlags |= Game.m_INPUT_RIGHT
+	if Input.is_action_pressed("ui_up"):
+		Game.m_InputFlags |= Game.m_INPUT_UP
+	if Input.is_action_pressed("ui_down"):
+		Game.m_InputFlags |= Game.m_INPUT_DOWN
+#	if Input.is_action_pressed("ui_select"):
+#		Game.m_InputFlags |= Game.m_INPUT_TRACTOR
+	if Input.is_action_just_pressed("fire"):
+		Game.m_InputFlags |= Game.m_INPUT_FIRE
+#	if Input.is_action_pressed("ui_accept"):
+#		Game.m_InputFlags |= Game.m_INPUT_BOMB
+	if Input.is_action_just_pressed("jump"):
+		Game.m_InputFlags |= Game.m_INPUT_JUMP
+	pass
 	
 
-func DoInput():
+func DoInput_Old():
 	
 	#var pr = Physics_GetRep()
 	#if pr == null:
@@ -219,6 +245,26 @@ func TickUpdate_TractorBeam():
 	pass
 
 func TickUpdate_Weapons():
+	if Game.m_InputFlags & Game.m_INPUT_FIRE:
+		var sid : int = Graph_Objects.get_obj_sid(m_Graph_ID)
+		print("fire from " + String(m_Pos) + " sid " + String(sid))
+		
+		var yaw = -Scene.m_Node_Controller.rotation.y + (PI / 2)
+		var pitch = (Scene.m_Node_Camera.rotation.x)
+		
+#		var forward = -Vector2(cos(angle), sin(angle))
+		var forward = Vector3(-cos(yaw), pitch, -sin(yaw))
+		forward = forward.normalized()
+		
+		#var debug_pos = m_Pos + (forward * 10)
+		#Scene.Debug_PlaceSphere(0, debug_pos)
+
+		# do a trace
+		
+		var hit : Graph_Objects.GTraceResult = Graph_Objects.trace(sid, m_Pos, forward)
+		if hit.m_bHit:
+			print("hit at " + String(hit.m_ptHit))
+			Scene.Debug_PlaceSphere(0, hit.m_ptHit)
 	
 #	var pr = Physics_GetRep()
 #	if pr == null:
@@ -305,7 +351,7 @@ func _input(event):
 		Scene.m_Node_Camera.rotation.x = clamp(Scene.m_Node_Camera.rotation.x, -1.2, 1.2)
 
 # 1st person shooter type control
-func move_firstperson():
+func Move_FirstPerson():
 	
 	var delta = Timing.m_Sec_PerTick
 	
@@ -315,15 +361,15 @@ func move_firstperson():
 	
 	var gob : Graph_Objects.GObject = Base_GetGOB()
 	
-	if Input.is_action_pressed("ui_left"):
+	if Game.m_InputFlags & Game.m_INPUT_LEFT:
 		move.x -= 1
 		#angle += delta
-	if Input.is_action_pressed("ui_right"):
+	if Game.m_InputFlags & Game.m_INPUT_RIGHT:
 		move.x += 1
 		#angle -= delta
-	if Input.is_action_pressed("ui_up"):
+	if Game.m_InputFlags & Game.m_INPUT_UP:
 		move.y += 1
-	if Input.is_action_pressed("ui_down"):
+	if Game.m_InputFlags & Game.m_INPUT_DOWN:
 		move.y -= 1
 		
 	if Input.is_action_pressed("ui_page_down"):
@@ -331,7 +377,7 @@ func move_firstperson():
 	if Input.is_action_pressed("ui_page_up"):
 		height += 1
 	
-	if (gob.m_bOnFloor) and (Input.is_action_just_pressed("jump")):
+	if (gob.m_bOnFloor) and (Game.m_InputFlags & Game.m_INPUT_JUMP):
 		height += 10
 		
 	# get forward vector
