@@ -74,14 +74,16 @@ const m_INPUT_LEFT = 1
 const m_INPUT_RIGHT = 2
 const m_INPUT_UP = 4
 const m_INPUT_DOWN = 8
-const m_INPUT_FIRE = 16
-const m_INPUT_BOMB = 32
-const m_INPUT_TRACTOR = 64
+const m_INPUT_JUMP = 16
+const m_INPUT_FIRE = 32
+#const m_INPUT_BOMB = 32
+#const m_INPUT_TRACTOR = 64
 
 var m_InputFlags : int = 0
 var m_ptInputAnalog : Vector2 = Vector2(0.0, 0.0)
 var m_bAnalogInput : bool = false
 
+var m_bMonstersMove : bool = true
 
 func Hardware_Detect():
 	m_bUseTouchscreen = OS.has_touchscreen_ui_hint()

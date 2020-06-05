@@ -107,3 +107,31 @@ func CalculateTriangleNormal(var a, var b, var c):
 	var side2 = c - a
 	var normal = side1.cross(side2)
 	return normal
+
+func Calculate_LineLine_Intersection2D (var v1 : Vector2, var v2 : Vector2, var v3 : Vector2, var v4 : Vector2):
+	var d
+	
+	# Make sure the lines aren't parallel
+	var v1to2 : Vector2 = v2 - v1
+	var v3to4 : Vector2 = v4 - v3
+	
+	if(v1to2.y / v1to2.x != v3to4.y / v3to4.x):
+		d = v1to2.x * v3to4.y - v1to2.y * v3to4.x
+		if (d != 0):
+			var v3to1 : Vector2 = v1 - v3;
+			var r = (v3to1.y * v3to4.x - v3to1.x * v3to4.y) / d
+			var s = (v3to1.y * v1to2.x - v3to1.x * v1to2.y) / d
+			return [true, r, s]
+	return [false]
+
+func Calculate_RayLineSegment_Intersection2D(var v1 : Vector2, var v2 : Vector2, var v3 : Vector2, var v4 : Vector2):
+	var res_arr = Calculate_LineLine_Intersection2D(v1, v2, v3, v4)
+	if res_arr[0] == true:
+		var r = res_arr[1]
+		var s = res_arr[2]
+		if r >= 0:
+			if s >= 0 && s <= 1:
+				var pt : Vector2
+				pt = (v1 + ((v2 - v1) * r))
+				return [true, pt]
+	return [false]

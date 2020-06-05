@@ -6,7 +6,7 @@ var m_Node_Root
 var m_Node_Game
 var m_Node_Demo
 var m_Node_UI
-var m_Node_Camera
+var m_Node_Camera : Spatial
 var m_Node_Light
 var m_Node_ParticleSystems
 
